@@ -1,12 +1,16 @@
 import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/contactsSlice';
+import { deleteContact } from 'redux/operations';
 import { PropTypes } from 'prop-types';
 import css from './ContactItem.module.css';
+import { useState } from 'react';
 
 const ContactItem = ({ name, number, id }) => {
   const dispatch = useDispatch();
+  const [, setIsDisabled] = useState(false);
 
   const onDelete = () => {
+    setIsDisabled(true);
+    console.log('requested id to delete:>> ', id);
     dispatch(deleteContact(id));
   };
 

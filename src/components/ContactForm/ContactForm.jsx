@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
 import { getContacts } from 'redux/selectors';
 import css from './ContactForm.module.css';
+import { nanoid } from '@reduxjs/toolkit';
 
 const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const contacts = useSelector(getContacts);
+  const { contacts } = useSelector(getContacts);
+
   const dispatch = useDispatch();
 
   const handleInput = event => {
@@ -38,7 +40,7 @@ const ContactForm = () => {
       window.alert(`we ara sorry, contact ${name} has already existed`);
       return;
     }
-    dispatch(addContact(name, number));
+    dispatch(addContact({ name, number }));
     reset();
   };
 
