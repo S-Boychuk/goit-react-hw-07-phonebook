@@ -1,8 +1,18 @@
-/* .contact-list {
-} */
-
-.no-contact-text {
-  font-weight: 700;
-  font-size: 24px;
+.no-contact-text,
+.error-text {
+  font-weight: 650;
+  font-size: 22px;
   line-height: 1.15;
+}
+
+.backdrop {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: rgba(47, 48, 58, 0.6);
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: scroll;
 }

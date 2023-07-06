@@ -1,9 +1,10 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getContacts, getFilter } from 'redux/selectors';
-import ContactItem from 'components/ContactItem/ContactItem';
-import css from './ContactList.module.css';
 import { fetchContacts } from 'redux/operations';
-import { useEffect } from 'react';
+import ContactItem from 'components/ContactItem/ContactItem';
+import Loader from 'components/Loader';
+import css from './ContactList.module.css';
 
 const ContactList = () => {
   const filter = useSelector(getFilter);
@@ -14,10 +15,6 @@ const ContactList = () => {
   }, [dispatch]);
 
   const { contacts, isLoading, error } = useSelector(getContacts);
-
-  // if (!contacts && !error) {
-  //   return;
-  // }
 
   const filterContacts = () => {
     if (filter !== '') {
@@ -32,7 +29,11 @@ const ContactList = () => {
 
   return (
     <>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && (
+        <div className={css.backdrop}>
+          <Loader />
+        </div>
+      )}
       {filteredContacts && filteredContacts.length > 0 ? (
         <ul className={css['contact-list']}>
           {filteredContacts.map(({ id, name, number }) => {
@@ -40,7 +41,7 @@ const ContactList = () => {
           })}
         </ul>
       ) : error ? (
-        <p>{error}</p>
+        <p className={css['error-text']}>{error}</p>
       ) : (
         <div>
           <p className={css['no-contact-text']}>Sorry, no contact found</p>

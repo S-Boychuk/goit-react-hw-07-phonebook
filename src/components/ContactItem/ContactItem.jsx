@@ -6,11 +6,8 @@ import { useState } from 'react';
 
 const ContactItem = ({ name, number, id }) => {
   const dispatch = useDispatch();
-  const [, setIsDisabled] = useState(false);
 
   const onDelete = () => {
-    setIsDisabled(true);
-    console.log('requested id to delete:>> ', id);
     dispatch(deleteContact(id));
   };
 
